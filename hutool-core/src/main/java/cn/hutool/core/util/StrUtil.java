@@ -1,5 +1,7 @@
 package cn.hutool.core.util;
 
+import javax.annotation.Nullable;
+
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.ByteBuffer;
@@ -526,5 +528,25 @@ public class StrUtil extends CharSequenceUtil implements StrPool {
 			return result + "...";
 		}
 		return result;
+	}
+
+	/**
+	 * 检查给定的字符串，是否包含非空白字符
+	 *
+	 * @param str        原始字符串
+	 * @return 是否包含非空白字符
+	 */
+	public static boolean hasText(@Nullable String str) {
+		return (str != null && !str.isEmpty() && containsText(str));
+	}
+
+	private static boolean containsText(CharSequence str) {
+		int strLen = str.length();
+		for (int i = 0; i < strLen; i++) {
+			if (!Character.isWhitespace(str.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
